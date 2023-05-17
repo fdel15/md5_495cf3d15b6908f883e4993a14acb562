@@ -31,6 +31,10 @@ gem "jbuilder"
 # https://github.com/yob/pdf-reader
 gem 'pdf-reader', '~> 1.4'
 
+# Tiktoken is BPE tokenizer from OpenAI used with their GPT models. This is a wrapper around it aimed primarily at enabling accurate counts of GPT model tokens used.
+# https://github.com/IAPark/tiktoken_ruby
+gem 'tiktoken_ruby', '~> 0.0.5'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
