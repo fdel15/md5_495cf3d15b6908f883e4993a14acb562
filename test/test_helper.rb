@@ -10,4 +10,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def delete_test_data(dir)
+    Dir.foreach(dir) do |file_name|
+      next if ['.', '..'].include?(file_name) # Skip current directory and parent directory entries
+      file_path = File.join(dir, file_name)
+      File.delete(file_path) if File.file?(file_path)
+    end
+  end
 end
