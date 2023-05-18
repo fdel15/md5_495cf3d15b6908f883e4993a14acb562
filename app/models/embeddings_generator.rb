@@ -4,7 +4,9 @@ class EmbeddingsGenerator
   include CsvHelpers
   EMBEDDINGS_DIRECTORY = "#{Rails.root}/embeddings"
 
-  def initialize
+  attr_reader :embedder
+  def initialize(embedder: OpenAI::Embedder.new)
+    @embedder = embedder
   end
 
   def create_pages_csv(
@@ -17,6 +19,16 @@ class EmbeddingsGenerator
     data = create_pages_csv_data(content)
     file_path = "#{output_directory}/#{csv_file_name}"
     write_to_csv(data: data, file_path: file_path, headers: headers)
+  end
+
+  def create_embeddings_csv(
+    data_csv_file_path:,
+    output_file_name:,
+    output_directory: EMBEDDINGS_DIRECTORY
+  )
+    # headers = title + 0 --> max vector columns
+    # data = get embedding
+    # file_path = "#{output_directory}/#{title}.csv"
   end
 
   private

@@ -35,6 +35,12 @@ gem 'pdf-reader', '~> 1.4'
 # https://github.com/IAPark/tiktoken_ruby
 gem 'tiktoken_ruby', '~> 0.0.5'
 
+# simple and flexible way to make HTTP requests and interact with web services
+gem 'httparty', '~> 0.21.0'
+
+# simplifies the process of loading environment variables from a file into the ENV hash
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
