@@ -18,4 +18,10 @@ class ActiveSupport::TestCase
       File.delete(file_path) if File.file?(file_path)
     end
   end
+
+  def mock_method(object:, method:, mocked_result:)
+    object.define_singleton_method(method) do |*args|
+      return mocked_result
+    end
+  end
 end
