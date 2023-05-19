@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require_relative "../../helpers/open_ai_helpers"
 
 class TestOpenAiEmbeddings < ActiveSupport::TestCase
   def setup
@@ -41,11 +42,7 @@ class TestOpenAiEmbeddings < ActiveSupport::TestCase
   end
 
   def test_create_returns_embeddings
-    mock_method(
-      object: @embedder_ada_002.client,
-      method: :post,
-      mocked_result: cached_api_response
-    )
+    OpenAiHelpers::Embeddings.mock_embeddings_request(@embedder_ada_002.client)
 
     text = Faker::Lorem.word
     output_dimensions = @embedder_ada_002.output_dimensions
@@ -54,18 +51,13 @@ class TestOpenAiEmbeddings < ActiveSupport::TestCase
 
     assert result.is_a?(Array), "Result should be an array of embeddings"
 
-    assert_equal(result.length, output_dimensions), "Number of embeddings should equal output dimensions for the model"
+    assert_equal(result.length, output_dimensions, "Number of embeddings should equal output dimensions for the model")
 
     sample = result.sample
 
     assert sample.is_a?(Float), "Result should be a vector (list) of floating point numbers"
 
     assert between_negative_1_and_1(sample), "Floating point numbers should be between -1 and 1"
-  end
-
-  def cached_api_response
-    data = File.read("#{Rails.root}/test/lib/open_ai/cached_api_responses/embedding.json")
-    JSON.parse(data)
   end
 
   def between_negative_1_and_1(float)

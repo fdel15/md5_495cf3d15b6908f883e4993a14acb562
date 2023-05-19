@@ -1,8 +1,11 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
+require_relative "helpers/mock_helpers"
 require "rails/test_help"
 
+
 class ActiveSupport::TestCase
+  include MockHelpers
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 
@@ -16,12 +19,6 @@ class ActiveSupport::TestCase
       next if ['.', '..'].include?(file_name) # Skip current directory and parent directory entries
       file_path = File.join(dir, file_name)
       File.delete(file_path) if File.file?(file_path)
-    end
-  end
-
-  def mock_method(object:, method:, mocked_result:)
-    object.define_singleton_method(method) do |*args|
-      return mocked_result
     end
   end
 end
