@@ -9,14 +9,35 @@ class HomePage extends React.Component {
       question: this.props.question || "",
       answer: this.props.answer || "",
     };
-
-    this.handleQuestionSubmit = this.handleQuestionSubmit.bind(this);
   }
 
-  handleQuestionSubmit = (question) => {
-    this.setState({ answer: question });
-    console.log("Question Submitted!");
-    console.log(this.state);
+  handleQuestionSubmit = async (question) => {
+    const answer = await this.fetchAnswer(question);
+    this.setState({ answer: answer });
+  };
+
+  fetchAnswer = async (question) => {
+    try {
+      // Make the request
+      const response = await fetch("/questions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
+            .content,
+        },
+        body: JSON.stringify({ question: question }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   render() {
