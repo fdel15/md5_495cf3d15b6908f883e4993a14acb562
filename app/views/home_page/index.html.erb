@@ -1,0 +1,13 @@
+
+<%= stylesheet_link_tag 'home_page' %>
+<div class="header">
+  <div class="logo">
+    <a href="#">
+    <%= image_tag 'book-covers.jpg' %>
+    </a>
+    <h1>Ask My Book</h1>
+  </div>
+</div>
+
+
+<%= react_component("HomePage", { question: "Will this work?" }) %>
