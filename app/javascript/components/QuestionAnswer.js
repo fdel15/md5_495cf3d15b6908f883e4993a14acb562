@@ -9,7 +9,6 @@ class QuestionAnswer extends React.Component {
   }
 
   handleClick = () => {
-    // console.log("Handle Click rootUrl: ", this.rootUrl);
     window.location.href = this.state.clickUrl;
   };
 
