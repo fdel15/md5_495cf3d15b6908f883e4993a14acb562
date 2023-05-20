@@ -41,6 +41,12 @@ gem 'httparty', '~> 0.21.0'
 # simplifies the process of loading environment variables from a file into the ENV hash
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
+# library to use the JavaScript pre-processor and bundler Webpack v5+ to manage frontend JavaScript in Rails
+gem "shakapacker", "= 6.6"
+
+# library to use React with rails
+gem "react-rails", "= 2.7"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
