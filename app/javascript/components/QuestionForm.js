@@ -8,20 +8,17 @@ class QuestionForm extends React.Component {
       value: this.props.question || "",
       hideSubmit: false,
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({ value: event.target.value });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     this.setState({ hideSubmit: true });
     this.props.handleQuestionSubmit(this.state.value);
     event.preventDefault();
-  }
+  };
 
   render() {
     return (
