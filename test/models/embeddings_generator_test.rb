@@ -59,11 +59,12 @@ class TestEmbeddingsGenerator < ActiveSupport::TestCase
     assert File.exist?(output_file), "Should generate CSV output file"
 
     lines = CSV.readlines(output_file)
-    output_dimensions = embedder.output_dimensions
+    headers = lines.first
+    expected_headers = ["Page #", "Content", "Embeddings"]
 
     assert_equal(
-      lines.first.length, output_dimensions + 1, 
-      "Output file should contain column for each output dimension plus a title column"
+      headers, expected_headers, 
+      "Output file should contain column for #{expected_headers.join(', ')}"
     )
   end
 end

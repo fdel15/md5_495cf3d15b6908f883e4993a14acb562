@@ -15,7 +15,7 @@ class EmbeddingsGenerator
     csv_file_name:,
     output_directory: EMBEDDINGS_DIRECTORY
   )
-    headers = ["Page #", "Content", "# of Tokens"]
+    headers = pages_csv_headers
     content = extract_pdf_text(pdf_file_path)
     data = create_pages_csv_data(content)
     file_path = "#{output_directory}/#{csv_file_name}"
@@ -67,11 +67,13 @@ class EmbeddingsGenerator
   def calculate_tokens(text)
     embedder.calculate_tokens(text)
   end
+  
+  def pages_csv_headers
+    ["Page #", "Content", "# of Tokens"]
+  end
 
   def embeddings_csv_headers
-    num_of_vectors = embedder.output_dimensions
-    vector_columns = (0..num_of_vectors - 1).to_a
-    ["Page #"] + vector_columns
+    ["Page #", "Content", "Embeddings"]
   end
 
   # Assumes pages to have the following headers:
@@ -83,7 +85,7 @@ class EmbeddingsGenerator
       content = row["Content"]
 
       embedding = get_embedding(content)
-      embeddings << [page_number] + embedding
+      embeddings << [page_number, content, embedding]
 
     rescue OpenAi::MaxTokenError
       # TODO: It would be better to do more than rescue this error by logging
