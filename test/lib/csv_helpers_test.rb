@@ -6,6 +6,7 @@ class TestCsvHelpers < ActiveSupport::TestCase
   include CsvHelpers
   def setup
     @output_directory = "#{Rails.root}/test/modules/test_data"
+    @sample_csv = "#{Rails.root}/test/fixtures/files/sample.csv"
   end
 
   def teardown
@@ -74,6 +75,28 @@ class TestCsvHelpers < ActiveSupport::TestCase
 
     expected_data = data.map { |row| lambda.call(row) }
     assert_equal(CSV.readlines(file_path), expected_data)
+  end
+
+  def test_transform_csv_to_array
+    array = transform_csv_to_array(@sample_csv)
+
+    assert array.is_a?(Array)
+
+    headers = get_first_line(@sample_csv)
+
+    assert_not_equal(array.first, headers)
+
+    first_line = CSV.read(@sample_csv, headers: true).first
+
+    assert_equal(array.first, first_line)
+  end
+
+  def test_transform_csv_to_array_with_block
+    random_data = Faker::Lorem.word
+
+    arr = transform_csv_to_array(@sample_csv) { |row| row['Random'] = random_data; row }
+
+    assert_equal(arr.first.fetch('Random'), random_data)
   end
 
   ##

@@ -25,4 +25,15 @@ module CsvHelpers
       end
     end
   end
+
+  def transform_csv_to_array(file_path, &block)
+    arr = []
+
+    CSV.foreach(file_path, headers: true) do |row|
+      next if row.header_row?
+      row = yield(row) if block_given? # allow data to be formatted by block
+      arr << row
+    end
+    arr
+  end
 end
