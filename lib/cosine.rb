@@ -29,6 +29,8 @@ module Cosine
     dot_product / (magnitude_a * magnitude_b)
   end
 
+  private
+
   def validate_inputs_are_arrays(a, b)
     unless a.is_a?(Array) && b.is_a?(Array)
       raise CosineError.new("Both input vectors need to be arrays")
