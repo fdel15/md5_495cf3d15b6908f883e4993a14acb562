@@ -73,7 +73,7 @@ class EmbeddingsGenerator
   end
 
   def embeddings_csv_headers
-    ["Page #", "Content", "Embeddings"]
+    ["Page #", "Content", "Embedding"]
   end
 
   # Assumes pages to have the following headers:

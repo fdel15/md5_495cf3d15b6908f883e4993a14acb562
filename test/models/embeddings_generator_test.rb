@@ -60,7 +60,7 @@ class TestEmbeddingsGenerator < ActiveSupport::TestCase
 
     lines = CSV.readlines(output_file)
     headers = lines.first
-    expected_headers = ["Page #", "Content", "Embeddings"]
+    expected_headers = ["Page #", "Content", "Embedding"]
 
     assert_equal(
       headers, expected_headers, 
