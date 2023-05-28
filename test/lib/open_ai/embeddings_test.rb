@@ -26,7 +26,7 @@ class TestOpenAiEmbeddings < ActiveSupport::TestCase
   end
 
   def test_create_returns_embeddings
-    OpenAiHelpers::Embeddings.mock_embeddings_request(@embedder_ada_002.client)
+    OpenAiHelpers::StubAPIRequests.stub(@embedder_ada_002.client, 'embedding.json')
 
     text = Faker::Lorem.word
     output_dimensions = @embedder_ada_002.output_dimensions

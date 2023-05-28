@@ -46,7 +46,7 @@ class TestEmbeddingsGenerator < ActiveSupport::TestCase
     output_directory = @output_directory
     embedder = @embeddings_generator.embedder
 
-    OpenAiHelpers::Embeddings.mock_embeddings_request(embedder.client)
+    OpenAiHelpers::StubAPIRequests.stub(embedder.client, 'embedding.json')
 
     @embeddings_generator.create_embeddings_csv(
       pages_csv_file_path: pages_csv_file_path,
