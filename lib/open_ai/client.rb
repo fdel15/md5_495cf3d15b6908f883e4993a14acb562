@@ -4,7 +4,6 @@
 # Encapsulates how we interact with OpenAI API
 ##
 module OpenAi
-  class APIError < StandardError; end
   class Client
     include HTTParty
 
