@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+require_relative 'helpers'
+
 ##
 # Generate Embeddings using OpenAi
 # https://platform.openai.com/docs/guides/embeddings/embeddings
 ##
-
 module OpenAi
   class Embeddings
+    include OpenAiHelpers
     # https://platform.openai.com/docs/guides/embeddings/embedding-models
     DEFAULT_MODEL = 'text-embedding-ada-002'
     EMBEDDING_MODEL = ENV['OPEN_AI_EMBEDDING_MODEL'] || DEFAULT_MODEL
@@ -44,11 +46,6 @@ module OpenAi
       @endpoint = '/embeddings'
     end
 
-    def calculate_tokens(text)
-      encoder = Tiktoken.get_encoding(tokenizer)
-      encoder.encode(text).length
-    end
-
     def create(text)
       validate_text(text)
 
@@ -76,7 +73,7 @@ module OpenAi
     end
 
     def validate_text(text)
-      token_count = calculate_tokens(text)
+      token_count = calculate_tokens(text, tokenizer)
       raise MaxTokenError.new(token_count, max_input_tokens) if token_count > max_input_tokens
     end
   end

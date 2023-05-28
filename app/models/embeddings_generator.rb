@@ -2,6 +2,8 @@
 
 class EmbeddingsGenerator
   include CsvHelpers
+  include OpenAiHelpers
+
   EMBEDDINGS_DIRECTORY = "#{Rails.root}/embeddings"
   DEFAULT_EMBEDDER = OpenAi::Embeddings.new
 
@@ -61,11 +63,11 @@ class EmbeddingsGenerator
   # Assumes csv headers will be
   # ["Page #", "Content", "# of Tokens"] 
   def create_page_csv_data(text, page_number)
-    [page_number, text, calculate_tokens(text)]
+    [page_number, text, calculate_tokens(text, tokenizer)]
   end
 
-  def calculate_tokens(text)
-    embedder.calculate_tokens(text)
+  def tokenizer
+    embedder.tokenizer
   end
   
   def pages_csv_headers

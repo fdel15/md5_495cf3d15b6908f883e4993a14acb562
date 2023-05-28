@@ -11,22 +11,6 @@ class TestOpenAiEmbeddings < ActiveSupport::TestCase
     )
   end
 
-  def test_calculate_tokens_cl100k_base
-    # expected token counts were calculated using OpenAis tokenizer python package
-    # https://platform.openai.com/docs/guides/embeddings/how-can-i-tell-how-many-tokens-a-string-has-before-i-embed-it
-    short_string = "beatae"
-    short_string_token_count = @embedder_ada_002.calculate_tokens(short_string)
-    short_string_expected_token_count = 3
-
-    assert_equal(short_string_token_count, short_string_expected_token_count)
-
-    long_string = "Excepturi voluptatem sed. Odit cupiditate hic. Atque amet molestiae."
-    long_string_token_count = @embedder_ada_002.calculate_tokens(long_string)
-    long_string_expected_token_count = 18
-
-    assert_equal(long_string_token_count, long_string_expected_token_count)
-  end
-
   def test_create_raises_max_token_error
     mock_method(
       object: @embedder_ada_002,
