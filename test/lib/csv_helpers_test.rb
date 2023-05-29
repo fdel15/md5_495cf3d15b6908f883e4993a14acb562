@@ -74,7 +74,7 @@ class TestCsvHelpers < ActiveSupport::TestCase
     assert(File.exist?(file_path), "File should be generated")
 
     expected_data = data.map { |row| lambda.call(row) }
-    assert_equal(CSV.readlines(file_path), expected_data)
+    assert_equal(expected_data, CSV.readlines(file_path))
   end
 
   def test_transform_csv_to_array
@@ -88,7 +88,7 @@ class TestCsvHelpers < ActiveSupport::TestCase
 
     first_line = CSV.read(@sample_csv, headers: true).first
 
-    assert_equal(array.first, first_line)
+    assert_equal(first_line, array.first)
   end
 
   def test_transform_csv_to_array_with_block
@@ -96,7 +96,7 @@ class TestCsvHelpers < ActiveSupport::TestCase
 
     arr = transform_csv_to_array(@sample_csv) { |row| row['Random'] = random_data; row }
 
-    assert_equal(arr.first.fetch('Random'), random_data)
+    assert_equal(random_data, arr.first.fetch('Random'))
   end
 
   ##

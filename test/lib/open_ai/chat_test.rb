@@ -16,7 +16,7 @@ class TestChat < ActiveSupport::TestCase
     )
     max_prompt_tokens = @chat_gpt_3_5_turbo.max_prompt_tokens
     expected = random_int / 2
-    assert_equal(max_prompt_tokens, expected, "Is expected to be half of the objects max tokens")
+    assert_equal(expected, max_prompt_tokens, "Is expected to be half of the objects max tokens")
   end
 
   def test_create_validates_prompt_tokens_count
@@ -55,6 +55,6 @@ class TestChat < ActiveSupport::TestCase
     # This is brittle and can probably be improved
     expected = "The Voldemort Ravenclaws won the Quidditch Cup in 2023."
 
-    assert_equal(message, expected)
+    assert_equal(expected, message)
   end
 end

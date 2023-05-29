@@ -15,12 +15,12 @@ class TestCosine < ActiveSupport::TestCase
     short_string_token_count = calculate_tokens(short_string, tokenizer)
     short_string_expected_token_count = 3
 
-    assert_equal(short_string_token_count, short_string_expected_token_count)
+    assert_equal(short_string_expected_token_count, short_string_token_count)
 
     long_string = "Excepturi voluptatem sed. Odit cupiditate hic. Atque amet molestiae."
     long_string_token_count = calculate_tokens(long_string, tokenizer)
     long_string_expected_token_count = 18
 
-    assert_equal(long_string_token_count, long_string_expected_token_count)
+    assert_equal(long_string_expected_token_count, long_string_token_count)
   end
 end

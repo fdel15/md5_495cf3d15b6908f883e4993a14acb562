@@ -18,7 +18,7 @@ class TestOpenAiEmbeddings < ActiveSupport::TestCase
       mocked_result: 0
     )
 
-    assert_equal(@embedder_ada_002.max_input_tokens, 0)
+    assert_equal(0, @embedder_ada_002.max_input_tokens)
     
     assert_raises(OpenAi::MaxTokenError) do
       @embedder_ada_002.create(Faker::Lorem.word)
@@ -35,7 +35,7 @@ class TestOpenAiEmbeddings < ActiveSupport::TestCase
 
     assert result.is_a?(Array), "Result should be an array of embeddings"
 
-    assert_equal(result.length, output_dimensions, "Number of embeddings should equal output dimensions for the model")
+    assert_equal(output_dimensions, result.length, "Number of embeddings should equal output dimensions for the model")
 
     sample = result.sample
 

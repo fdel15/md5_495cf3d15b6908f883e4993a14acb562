@@ -38,7 +38,7 @@ class TestAnswerQuery < ActiveSupport::TestCase
       chatbot: chatbot
     )
 
-    assert_equal(answer, expected, "Should return message from chatbot")
+    assert_equal(expected, answer, "Should return message from chatbot")
   end
 
   def test_fetch_answer
@@ -52,7 +52,7 @@ class TestAnswerQuery < ActiveSupport::TestCase
 
     answer = @answer_query.fetch_answer
 
-    assert_equal(answer, expected, "Should return message from chatbot")
+    assert_equal(expected, answer, "Should return message from chatbot")
   end
 
   def test_prompt_content_truncated_to_stay_under_max_prompt_tokens
@@ -74,7 +74,7 @@ class TestAnswerQuery < ActiveSupport::TestCase
     prompt_content = @answer_query.create_prompt_content
     expected = [content_1]
 
-    assert_equal(prompt_content, expected)
+    assert_equal(expected, prompt_content)
   end
 
   def test_prompt_content_includes_all_content_if_under_max
@@ -89,7 +89,7 @@ class TestAnswerQuery < ActiveSupport::TestCase
     prompt_content = @answer_query.create_prompt_content
     expected = sorted_array.map { |data| data.fetch('Content') }
 
-    assert_equal(prompt_content, expected)
+    assert_equal(expected, prompt_content)
   end
 
   def test_sorted_similar_array
@@ -104,7 +104,7 @@ class TestAnswerQuery < ActiveSupport::TestCase
       cosine_similarity(stubbed_query_embedding, embedding)
     end
 
-    assert_equal(sorted_similarities, expected)
+    assert_equal(expected, sorted_similarities)
   end
 
   ##

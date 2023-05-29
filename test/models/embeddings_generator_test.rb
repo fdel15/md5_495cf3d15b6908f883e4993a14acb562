@@ -37,7 +37,7 @@ class TestEmbeddingsGenerator < ActiveSupport::TestCase
     # This can probably be improved to be less brittle
     expected_file_hash = Digest::SHA256.file(@sample_pages_csv).hexdigest
 
-    assert_equal(output_file_hash, expected_file_hash)
+    assert_equal(expected_file_hash, output_file_hash)
   end
 
   def test_create_embeddings_csv
@@ -63,7 +63,7 @@ class TestEmbeddingsGenerator < ActiveSupport::TestCase
     expected_headers = ["Page #", "Content", "Embedding"]
 
     assert_equal(
-      headers, expected_headers, 
+      expected_headers, headers, 
       "Output file should contain column for #{expected_headers.join(', ')}"
     )
   end
