@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+##
+# This class is responsible for taking a query from the user and returning
+# the answer
+##
 class QueryResponder
   OPENAI = 'open_ai'
 
@@ -9,9 +13,15 @@ class QueryResponder
 
   def self.fetch_answer(query:, data_file:, responder: OPENAI, **options)
     question = Question.find_by_query(query)
-    return question.answer if question
+
+    if question
+      question.increment_number_of_times_asked
+      return question.answer_text
+    end
 
     responder = RESPONDERS.fetch(responder)
-    answer = responder.fetch_answer(query: query, data_file: data_file, **options)
+    answer_text = responder.fetch_answer(query: query, data_file: data_file, **options)
+    Question.create(query_text: query, answer_text: answer_text)
+    answer_text
   end
 end
