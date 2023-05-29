@@ -5,7 +5,7 @@ require "test_helper"
 class TestCsvHelpers < ActiveSupport::TestCase
   include CsvHelpers
   def setup
-    @output_directory = "#{Rails.root}/test/modules/test_data"
+    @output_directory = "#{Rails.root}/test/lib/test_data"
     @sample_csv = "#{Rails.root}/test/fixtures/files/sample.csv"
   end
 
