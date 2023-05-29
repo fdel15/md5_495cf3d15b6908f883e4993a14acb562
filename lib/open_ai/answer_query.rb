@@ -10,18 +10,20 @@ module OpenAi
 
     SIMILARITY_KEY = 'Similarity'
 
-    attr_reader :data_file, :chatbot, :embedder, :query
+    attr_reader :data_file, :chatbot, :embedder, :generate_prompt, :query
 
     def initialize(
       query:,
       data_file:,
       embedder: OpenAi::Embeddings.new,
-      chatbot: OpenAi::Chat.new
+      chatbot: OpenAi::Chat.new,
+      generate_prompt: true
     )
       @query = query
       @data_file = data_file
       @embedder = embedder
       @chatbot = chatbot
+      @generate_prompt = generate_prompt
     end
 
     def self.fetch_answer(**kwargs)
@@ -35,6 +37,8 @@ module OpenAi
     end
 
     def create_prompt_content
+      return [] unless generate_prompt
+
       token_count = calculate_tokens(query, tokenizer)
       prompt_content = []
 
