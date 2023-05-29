@@ -1,0 +1,13 @@
+first_question:
+  id: "12345678-1234-1234-1234-123456789abc"
+  query_text: "What is the capital of France?"
+  answer_text: "Paris"
+  md5_hash: "e5c28c34c5356134ebe7c5f5d11c33f1" # generated using Question.query_md5_hash for raw_text
+  number_of_times_asked: 1
+
+second_question:
+  id: "87654321-4321-4321-4321-dcba98765432"
+  query_text: "Who wrote the Iliad?"
+  answer_text: "Homer"
+  md5_hash: "4c981208ab721ec6d48a56668a2bf1c0" # generated using Question.query_md5_hash for raw_text
+  number_of_times_asked: 2
