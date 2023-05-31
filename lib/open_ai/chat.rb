@@ -64,7 +64,7 @@ module OpenAi
         messages: messages,
         model: model,
         temperature: temperature,
-        max_tokens: max_tokens
+        max_tokens: completion_max_tokens
       }
 
       data = client.post(endpoint, body)
@@ -94,6 +94,15 @@ module OpenAi
       return MAX_TOKENS_OVERRIDE.to_i if MAX_TOKENS_OVERRIDE
 
       MODEL_MAX_TOKENS.fetch(model, 0)
+    end
+
+    ##
+    # Max number of tokens OpenAI will return in response
+    # API will throw an error if input tokens + completion tokens are greater
+    # than model max tokens 
+    ##
+    def completion_max_tokens
+      max_tokens - max_prompt_tokens
     end
 
     def validate_prompt(string_array)
