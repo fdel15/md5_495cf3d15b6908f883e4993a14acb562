@@ -8,6 +8,7 @@ class HomePage extends React.Component {
     this.state = {
       question: this.props.question || "",
       answer: this.props.answer || "",
+      dataFile: this.props.dataFile || "",
     };
   }
 
@@ -17,6 +18,7 @@ class HomePage extends React.Component {
   };
 
   fetchAnswer = async (question) => {
+    const { dataFile } = this.state;
     try {
       // Make the request
       const response = await fetch("/questions", {
@@ -26,7 +28,7 @@ class HomePage extends React.Component {
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
             .content,
         },
-        body: JSON.stringify({ question: question }),
+        body: JSON.stringify({ question: question, data_file: dataFile }),
       });
 
       if (!response.ok) {

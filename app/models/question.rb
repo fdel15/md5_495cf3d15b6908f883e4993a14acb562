@@ -32,6 +32,10 @@ class Question < ApplicationRecord
     Digest::MD5.hexdigest(query)
   end
 
+  def self.random_query
+    self.limit(1).order('RANDOM()').pluck(:query_text).first
+  end
+
   def increment_number_of_times_asked
     self.increment!(:number_of_times_asked)
   end
