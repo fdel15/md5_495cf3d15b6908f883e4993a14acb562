@@ -63,8 +63,8 @@ module OpenAi
       body = {
         messages: messages,
         model: model,
-        temperature: temperature,
-        max_tokens: completion_max_tokens
+        temperature: temperature
+        #max_tokens: completion_max_tokens # Disabling. See comment below for completion_max_tokens
       }
 
       data = client.post(endpoint, body)
@@ -99,7 +99,14 @@ module OpenAi
     ##
     # Max number of tokens OpenAI will return in response
     # API will throw an error if input tokens + completion tokens are greater
-    # than model max tokens 
+    # than model max tokens
+    #
+    # Disabling for now because by default OpenAi will set this value to maximum
+    # possible tokens based on input. This has been a better experience because
+    # the calculation below does not account for tokens added during prompt creation
+    # and we are not gracefully handling when input tokens + prompt + completion_max_tokens
+    # are greater than the models max tokens.
+    # https://platform.openai.com/docs/api-reference/chat/create
     ##
     def completion_max_tokens
       max_tokens - max_prompt_tokens
