@@ -44,10 +44,11 @@ module OpenAi
 
       sorted_similarity_array.each do |data|
         content = data.fetch('Content')
-        token_count += calculate_tokens(content, tokenizer)
+        tokens = calculate_tokens(content, tokenizer)
         
-        break if token_count > max_tokens
+        break if token_count + tokens > max_tokens
 
+        token_count += tokens
         prompt_content << content
       end
 
