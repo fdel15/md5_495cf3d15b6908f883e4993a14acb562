@@ -14,7 +14,7 @@ class HomePage extends React.Component {
 
   handleQuestionSubmit = async (question) => {
     const answer = await this.fetchAnswer(question);
-    this.setState({ answer: answer });
+    this.setState({ answer: answer, lastQuestion: question });
   };
 
   fetchAnswer = async (question) => {
@@ -43,18 +43,18 @@ class HomePage extends React.Component {
   };
 
   render() {
-    const { question, answer } = this.state;
+    const { question, answer, lastQuestion } = this.state;
 
     let hasAnswer = !!answer;
 
     return (
       <React.Fragment>
         <div class="main">
+          {hasAnswer && <QuestionAnswer answer={answer} question={lastQuestion} />}
           <QuestionForm
             question={question}
             handleQuestionSubmit={this.handleQuestionSubmit}
           />
-          {hasAnswer && <QuestionAnswer answer={answer} />}
         </div>
       </React.Fragment>
     );

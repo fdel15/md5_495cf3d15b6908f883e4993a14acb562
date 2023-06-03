@@ -157,6 +157,21 @@ footer {
   display: block;
 }
 
+#question {
+  margin: 15px;
+  font-weight: bold;
+}
+
+#answer {
+  margin: 15px;
+}
+
+#answer-container {
+  border: 2px solid black;
+  margin: 20px 0;
+  background: #d9d9f9;
+}
+
 footer {
   text-align: center;
 }

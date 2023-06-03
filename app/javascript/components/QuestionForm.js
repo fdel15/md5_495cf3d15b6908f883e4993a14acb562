@@ -15,8 +15,8 @@ class QuestionForm extends React.Component {
   };
 
   handleSubmit = (event) => {
-    this.setState({ hideSubmit: true });
     this.props.handleQuestionSubmit(this.state.value);
+    this.setState({ value: "" });
     event.preventDefault();
   };
 
@@ -24,7 +24,7 @@ class QuestionForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
-          Ask a question:
+          <h3>Ask a question:</h3>
           <textarea
             type="text"
             value={this.state.value}
