@@ -1,0 +1,37 @@
+# Ignore all tests
+/test/*
+
+# Ignore test and development SQLite databases
+/db/test.sqlite3
+/db/development.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
+/public/assets
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# docker start/stop commands
+scripts/boot_prod.sh
+scripts/stop_prod.sh
