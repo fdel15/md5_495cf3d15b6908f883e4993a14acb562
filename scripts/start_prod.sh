@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # stop and remove any existing containers
-docker rm -f md5_prod
+docker rm -f md5_prod 2>/dev/null
 
 # build image from Dockerfile and tag as latest
 docker build . -t md5_book:latest
