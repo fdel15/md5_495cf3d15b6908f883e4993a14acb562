@@ -6,7 +6,6 @@ class QuestionForm extends React.Component {
     super(props);
     this.state = {
       value: this.props.question || "",
-      hideSubmit: false,
     };
   }
 
@@ -32,10 +31,7 @@ class QuestionForm extends React.Component {
           />
         </label>
 
-        <div
-          className="buttons"
-          style={{ display: this.state.hideSubmit ? "none" : "block" }}
-        >
+        <div className="buttons">
           <button type="submit" id="ask-button">
             Ask question
           </button>
@@ -44,5 +40,9 @@ class QuestionForm extends React.Component {
     );
   }
 }
+
+QuestionForm.propTypes = {
+  question: PropTypes.string,
+};
 
 export default QuestionForm;

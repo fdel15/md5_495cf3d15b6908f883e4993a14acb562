@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import QuestionForm from "./QuestionForm";
 import QuestionAnswer from "./QuestionAnswer";
+import FrequentlyAskedQuestions from "./FrequentlyAskedQuestions";
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: this.props.question || "",
+      faqs: this.props.faqs || "",
       answer: this.props.answer || "",
       dataFile: this.props.dataFile || "",
       loading: false,
@@ -47,7 +48,7 @@ class HomePage extends React.Component {
   };
 
   render() {
-    const { question, answer, lastQuestion, loading } = this.state;
+    const { faqs, answer, lastQuestion, loading } = this.state;
 
     let hasAnswer = !!answer;
 
@@ -58,8 +59,10 @@ class HomePage extends React.Component {
           {hasAnswer && (
             <QuestionAnswer answer={answer} question={lastQuestion} />
           )}
-          <QuestionForm
-            question={question}
+          <QuestionForm handleQuestionSubmit={this.handleQuestionSubmit} />
+
+          <FrequentlyAskedQuestions
+            questions={faqs}
             handleQuestionSubmit={this.handleQuestionSubmit}
           />
         </div>
@@ -69,7 +72,9 @@ class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
-  question: PropTypes.string,
+  faqs: PropTypes.arrayOf(PropTypes.string),
   answer: PropTypes.string,
+  dataFile: PropTypes.string,
 };
+
 export default HomePage;
