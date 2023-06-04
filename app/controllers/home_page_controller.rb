@@ -1,7 +1,7 @@
 class HomePageController < ApplicationController
   def index
     @data_file = embeddings_file_path
-    @question = Question.random_query
+    @faqs = Question.faqs
   end
 
   private

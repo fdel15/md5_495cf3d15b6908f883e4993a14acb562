@@ -36,6 +36,10 @@ class Question < ApplicationRecord
     self.limit(1).order('RANDOM()').pluck(:query_text).first
   end
 
+  def self.faqs
+    self.limit(5).order(number_of_times_asked: :desc).pluck(:query_text)
+  end
+
   def increment_number_of_times_asked
     self.increment!(:number_of_times_asked)
   end
