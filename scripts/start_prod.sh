@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # build image from Dockerfile and tag as latest
 docker build . -t md5_book:latest
 
@@ -12,8 +14,8 @@ docker build . -t md5_book:latest
 #
 # --detach run container in background. This works for prod because:
 #   - we are not logging input/output in prod environment
-#   - we are not adding interactive terminal. CTL-C will not kill app when we do
-#     not add this (with -it option) which can be confusing and seem buggy
+#   - we are not adding interactive terminal (-it option). CTL-C will not kill 
+#     app when we do not add this which can be confusing and seem buggy
 #
 # -v mount volume of sqlite database to have persistence if you need to stop/start
 #    the container
@@ -28,5 +30,27 @@ docker run \
   -v $ABSOLUTE_PATH_OF_MD5_APP/db/production.sqlite3:/app/db/production.sqlite3 \
   md5_book:latest # name of image we built above
 
-echo "App successfully started!"
-echo "You can access it on your local machine by going to http://localhost:3000/ in your browser"
+echo "App is booting up!"
+
+# Ensure app has started before exiting script to prevent awkward minute where
+# it looks like localhost:3000 is broken
+start=0
+appStarted=0
+while [ $start -lt 15 ]; do
+  httpCode=$(curl -s -o /dev/null -w "%{http_code}" localhost:3000)
+  if [ $httpCode -eq 200 ]; then
+    appStarted=1
+    break
+  fi
+  start=$((start + 1))
+  echo .
+  sleep 10
+done
+
+if [ $appStarted -eq 1 ]; then
+  echo "App has successfully booted!"
+  echo "You can access it on your local machine by going to http://localhost:3000/ in your browser"
+else
+  echo "Something has gone wrong"
+  docker logs md5_prod
+fi
