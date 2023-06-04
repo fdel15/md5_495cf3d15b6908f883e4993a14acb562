@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# stop and remove any existing containers
+docker rm -f md5_prod
+
 # build image from Dockerfile and tag as latest
 docker build . -t md5_book:latest
 
@@ -15,7 +18,7 @@ docker build . -t md5_book:latest
 # --detach run container in background. This works for prod because:
 #   - we are not logging input/output in prod environment
 #   - we are not adding interactive terminal (-it option). CTL-C will not kill 
-#     app when we do not add this which can be confusing and seem buggy
+#     container when we do not add this which can be confusing and seem buggy
 #
 # -v mount volume of sqlite database to have persistence if you need to stop/start
 #    the container
@@ -36,16 +39,18 @@ echo "App is booting up!"
 # it looks like localhost:3000 is broken
 start=0
 appStarted=0
-while [ $start -lt 15 ]; do
+while [ $start -lt 60 ]; do
   httpCode=$(curl -s -o /dev/null -w "%{http_code}" localhost:3000)
   if [ $httpCode -eq 200 ]; then
     appStarted=1
     break
   fi
   start=$((start + 1))
-  echo .
-  sleep 10
+  printf .
+  sleep 2
 done
+
+echo ""
 
 if [ $appStarted -eq 1 ]; then
   echo "App has successfully booted!"
