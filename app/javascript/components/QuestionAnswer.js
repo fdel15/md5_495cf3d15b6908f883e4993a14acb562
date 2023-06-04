@@ -20,6 +20,6 @@ class QuestionAnswer extends React.Component {
 }
 
 QuestionAnswer.propTypes = {
-  answer: PropTypes.string,
+  answer: PropTypes.string.isRequired,
 };
 export default QuestionAnswer;
