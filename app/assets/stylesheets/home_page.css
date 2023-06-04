@@ -191,6 +191,24 @@ footer {
   }
 }
 
+#faq {
+  margin: 50px 0;
+}
+
+.faq_list {
+  list-style: none;
+}
+
+.faq_query_text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.faq_query_text:hover {
+  cursor: pointer;
+  font-size: 24px;
+}
+
 footer {
   text-align: center;
 }
