@@ -14,13 +14,18 @@ docker build . -t md5_book:latest
 #   - we are not logging input/output in prod environment
 #   - we are not adding interactive terminal. CTL-C will not kill app when we do
 #     not add this (with -it option) which can be confusing and seem buggy
+#
+# -v mount volume of sqlite database to have persistence if you need to stop/start
+#    the container
 ##
+ABSOLUTE_PATH_OF_MD5_APP=$(pwd | grep -o ".*md5_495cf3d15b6908f883e4993a14acb562")
 docker run \
   --rm \
   -e RAILS_ENV=production \
   -p 3000:3000 \
   --name md5_prod \
   -d \
+  -v $ABSOLUTE_PATH_OF_MD5_APP/db/production.sqlite3:/app/db/production.sqlite3 \
   md5_book:latest # name of image we built above
 
 echo "App successfully started!"
