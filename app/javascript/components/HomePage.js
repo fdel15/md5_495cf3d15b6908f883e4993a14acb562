@@ -9,6 +9,7 @@ class HomePage extends React.Component {
       question: this.props.question || "",
       answer: this.props.answer || "",
       dataFile: this.props.dataFile || "",
+      loading: false,
     };
   }
 
@@ -20,6 +21,7 @@ class HomePage extends React.Component {
   fetchAnswer = async (question) => {
     const { dataFile } = this.state;
     try {
+      this.setState({ loading: true });
       // Make the request
       const response = await fetch("/questions", {
         method: "POST",
@@ -36,21 +38,26 @@ class HomePage extends React.Component {
       }
 
       const data = await response.json();
+      this.setState({ loading: false });
       return data;
     } catch (error) {
+      this.setState({ loading: false });
       console.error("Error:", error);
     }
   };
 
   render() {
-    const { question, answer, lastQuestion } = this.state;
+    const { question, answer, lastQuestion, loading } = this.state;
 
     let hasAnswer = !!answer;
 
     return (
       <React.Fragment>
         <div class="main">
-          {hasAnswer && <QuestionAnswer answer={answer} question={lastQuestion} />}
+          {loading && <div class="spinner"></div>}
+          {hasAnswer && (
+            <QuestionAnswer answer={answer} question={lastQuestion} />
+          )}
           <QuestionForm
             question={question}
             handleQuestionSubmit={this.handleQuestionSubmit}
