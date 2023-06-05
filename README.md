@@ -6,10 +6,10 @@ This project was inspired by [askmybook.com](https://askmybook.com/)
 
 The code in this repository is currently running on [md5_book.delpid.io](https://md5_book.delpid.io/)
 
-- Setup
-- Local Development
-- Deployment
-- Architecure decisions
+- [Setup](#setup)
+- [Local Development](#local-development)
+- [Deployment](#deployment)
+- [Architecure decisions](#architecure-decisions)
 
 ## Setup
 
@@ -123,7 +123,7 @@ The ELB is configured to accept HTTPS requests, so I used AWS Certificate Manage
 
 And thats the high level overview for how I deployed it to AWS.
 
-## Architecure decisions:
+## Architecure decisions
 
 ### Created my own OpenAI library
 
