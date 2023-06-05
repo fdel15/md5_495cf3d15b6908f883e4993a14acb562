@@ -22,6 +22,9 @@ docker build . -t md5_book:latest
 #
 # -v mount volume of sqlite database to have persistence if you need to stop/start
 #    the container
+#
+# -v mount the pdfs directory so that you don't have to restart the container to 
+#    embed a pdf file
 ##
 ABSOLUTE_PATH_OF_MD5_APP=$(pwd | grep -o ".*md5_495cf3d15b6908f883e4993a14acb562")
 docker run \
@@ -31,6 +34,7 @@ docker run \
   --name md5_prod \
   -d \
   -v $ABSOLUTE_PATH_OF_MD5_APP/db/production.sqlite3:/app/db/production.sqlite3 \
+  -v $ABSOLUTE_PATH_OF_MD5_APP/pdfs:/app/pdfs \
   md5_book:latest # name of image we built above
 
 echo "App is booting up!"
