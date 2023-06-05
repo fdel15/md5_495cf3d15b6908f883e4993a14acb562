@@ -25,6 +25,9 @@ docker build . -t md5_book:latest
 #
 # -v mount the pdfs directory so that you don't have to restart the container to 
 #    embed a pdf file
+#
+# -v mount the embeddings directory so that you can view the generated embedding
+#    files
 ##
 ABSOLUTE_PATH_OF_MD5_APP=$(pwd | grep -o ".*md5_495cf3d15b6908f883e4993a14acb562")
 docker run \
@@ -35,6 +38,7 @@ docker run \
   -d \
   -v $ABSOLUTE_PATH_OF_MD5_APP/db/production.sqlite3:/app/db/production.sqlite3 \
   -v $ABSOLUTE_PATH_OF_MD5_APP/pdfs:/app/pdfs \
+  -v $ABSOLUTE_PATH_OF_MD5_APP/embeddings:/app/embeddings \
   md5_book:latest # name of image we built above
 
 echo "App is booting up!"
