@@ -41,6 +41,10 @@ Be sure to add your own API key for [OpenAI](https://openai.com/blog/openai-api)
 The following command will build a docker image and start a container that
 runs the webapp.
 
+```
+sh scripts/start_prod.sh
+```
+
 The script will let you know when the app has finished booting up.
 
 After it boots you should be able to view the app in your browser by navigating to localhost:3000
